@@ -1,4 +1,4 @@
-package com.psytrack.app;
+package com.psytrack.app.User;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
