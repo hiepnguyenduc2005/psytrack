@@ -14,6 +14,7 @@ const Navbar: React.FC = () => {
       zIndex: 1000,
       width: "100%",
       boxSizing: "border-box",
+      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
     },
     logo: {
       fontSize: '2rem',
@@ -28,10 +29,6 @@ const Navbar: React.FC = () => {
     },
     link: {
       color: 'black',
-      textDecoration: 'none',
-    },
-    linkHover: {
-      opacity: '0.5',
     },
   } as const;
 
@@ -39,9 +36,50 @@ const Navbar: React.FC = () => {
     <nav style={styles.navbar}>
       <Link to="/" style={{ ...styles.logo, ...styles.link }}>Logo</Link>
       <ul style={styles.links}>
-        <li><Link to="/stroop-task" style={styles.link}>Stroop Task</Link></li>
-        <li><Link to="/about" style={styles.link}>About</Link></li>
-        <li><Link to="/login" style={styles.link}>Log In</Link></li>
+        <li>
+          <Link 
+            to="/resources" 
+            style={styles.link}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            Resources
+          </Link>
+        </li>
+
+        <li>
+          <Link 
+            to="/stroop-task" 
+            style={styles.link}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            Stroop Task
+          </Link>
+        </li>
+
+        <li>
+          <Link 
+            to="/about-us" 
+            style={styles.link}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            About Us
+          </Link>
+        </li>
+
+        <li>
+          <Link 
+            to="/login" 
+            style={styles.link}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            Log In
+          </Link>
+        </li>
+
       </ul>
     </nav>
   );
