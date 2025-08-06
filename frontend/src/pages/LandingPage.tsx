@@ -1,3 +1,4 @@
+import React from 'react';
 import Navbar from "../components/NavBar";
 
 const LandingPage: React.FC = () => {
@@ -8,3 +9,4 @@ const LandingPage: React.FC = () => {
     </div>
   );
 };
+export default LandingPage;
