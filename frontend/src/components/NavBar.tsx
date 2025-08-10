@@ -13,6 +13,7 @@ const Navbar: React.FC = () => {
       left: 0,
       zIndex: 1000,
       width: "100%",
+      backgroundColor: '#ffffffff',
       boxSizing: "border-box",
       boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
     },
@@ -49,7 +50,7 @@ const Navbar: React.FC = () => {
 
         <li>
           <Link 
-            to="/stroop-task" 
+            to="/stroopTask" 
             style={styles.link}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
@@ -60,18 +61,18 @@ const Navbar: React.FC = () => {
 
         <li>
           <Link 
-            to="/about-us" 
+            to="/Dashboard" 
             style={styles.link}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
-            About Us
+            Dashboard
           </Link>
         </li>
 
         <li>
           <Link 
-            to="/login" 
+            to="/logIn" 
             style={styles.link}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}

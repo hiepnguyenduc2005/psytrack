@@ -4,18 +4,17 @@ import { Link } from "react-router-dom";
 const Footer: React.FC = () => {
   const styles= {
     footer: {
-      position: "fixed",
       width: "100%",
       backgroundColor: '#6b6b6bff',
       bottom: 0,
-      left: 0,
       justifyContent: "center",
-      padding: "1rem 2rem",
-      alignItems: "center",
+      padding: "1.5rem 0rem",
+      position: 'relative', 
+      margin: 0, 
+      boxSizing: "border-box" as const,
     },
     container: {
       display: "flex",
-      alignItems: "center",
       justifyContent: "center",
       gap: "4rem",
     },
@@ -23,8 +22,8 @@ const Footer: React.FC = () => {
       color: "#c3c5c8ff",
     },
     bottom: {
-      marginTop: "2rem",
-      paddingTop: "1rem",
+      marginTop: "1rem",
+      paddingTop: "0rem",
       textAlign: "center" as const,
       fontSize: "1rem",
       color: "#000000ff",
