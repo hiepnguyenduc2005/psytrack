@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav style={styles.navbar}>
-      <Link to="/" style={{ ...styles.logo, ...styles.link }}>Logo</Link>
+      <Link to="/" style={{ ...styles.logo, ...styles.link }}>PsyTrack</Link>
       <ul style={styles.links}>
         <li>
           <Link 
