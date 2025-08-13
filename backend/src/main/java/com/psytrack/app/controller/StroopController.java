@@ -1,30 +1,46 @@
 package com.psytrack.app.controller;
 
-import com.psytrack.app.Stroop.Stroop;
+import com.psytrack.app.Stroop.StroopResult;
 import com.psytrack.app.Stroop.StroopService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.psytrack.app.Stroop.StroopSession;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/stroop")
 public class StroopController {
 
-    private final StroopService stroopService;
+    private final StroopService service;
 
-    public StroopController(StroopService stroopService) {
-        this.stroopService = stroopService;
+    public StroopController(StroopService service) {
+        this.service = service;
     }
 
-    @GetMapping()
-    public Stroop getStroop(@RequestParam String id) {
-        return stroopService.findStroopById(id);
+    @PostMapping("/start")
+    public StroopSession startSession(@RequestParam String participantId, @RequestParam int numTrials) {
+        return service.startSession(participantId, numTrials);
     }
 
-    @PutMapping("/new")
-    public ResponseEntity<String> newStroop(@RequestParam String id, @RequestParam Integer time) {
-        Stroop stroop = new Stroop(id, time);
-        if (stroopService.createStroop(stroop) != null) return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @PostMapping("/result")
+    public StroopResult submitResult(@RequestParam String sessionId, @RequestBody StroopResult result) {
+        return service.saveResult(sessionId, result);
+    }
+
+    @PostMapping("/cancel")
+    public String cancelSession(@RequestParam String sessionId) {
+        service.cancelSession(sessionId);
+        return "Session cancelled";
+    }
+
+    @PostMapping("/complete")
+    public String completeSession(@RequestParam String sessionId) {
+        service.completeSession(sessionId);
+        return "Session completed";
+    }
+
+    @GetMapping("/results/{sessionId}")
+    public List<StroopResult> getResults(@PathVariable String sessionId) {
+        return service.getResultsForSession(sessionId);
     }
 }
