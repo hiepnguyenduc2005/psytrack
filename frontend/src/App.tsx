@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import Dashboard from './pages/Dashboard'
 import './App.css'
+import StroopTask from "./pages/StroopTask.tsx";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         {/* Landing Page */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/Dashboard" element={<Dashboard />} />
-
+          <Route path="/stroopTask" element={<StroopTask />} />
         {/* You can add more routes here later */}
         {/* <Route path="/about" element={<AboutPage />} /> */}
       </Routes>

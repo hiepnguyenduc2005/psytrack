@@ -5,11 +5,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Stroop")
+@Document(collection = "StroopResult")
 @Data
 @AllArgsConstructor
-public class Stroop {
+public class StroopResult {
     @Id
     private String id;
-    private Integer reactionTimeMS;
+    private String sessionId;
+    private StroopTrial trial;
+    private String userResponse;
+    private long reactionTimeMS;
+    private boolean correct;
+    private boolean missed;
 }

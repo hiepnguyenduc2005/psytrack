@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class StroopDataLoader implements CommandLineRunner {
 
-    private final StroopService stroopService;
+    private final StroopResultService stroopResultService;
 
-    public StroopDataLoader(StroopService stroopService) {
-        this.stroopService = stroopService;
+    public StroopDataLoader(StroopResultService stroopResultService) {
+        this.stroopResultService = stroopResultService;
     }
 
     @Override
