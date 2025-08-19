@@ -6,12 +6,10 @@ const Footer: React.FC = () => {
     footer: {
       width: "100%",
       backgroundColor: '#6b6b6bff',
-      bottom: 0,
-      justifyContent: "center",
       padding: "1.5rem 0rem",
-      position: 'relative', 
-      margin: 0, 
-      boxSizing: "border-box" as const,
+      position: 'absolute', 
+      bottom: 0,
+      left: 0,
     },
     container: {
       display: "flex",

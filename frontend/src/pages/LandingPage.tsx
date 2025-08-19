@@ -9,8 +9,6 @@ const LandingPage: React.FC = () => {
       <Navbar />
       {/* -- */}
       <LandingMiddle />
-      <LandingMiddle />
-      <LandingMiddle />
       <Footer />
     </div>
   );

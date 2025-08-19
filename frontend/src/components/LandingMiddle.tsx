@@ -10,6 +10,8 @@ const LandingMiddle: React.FC = () => {
       justifyContent: "space-between",
       padding: "3rem 2rem",
       maxWidth: "1200px",
+      //backgroundColor: '#6b6b6bff',
+      margin: 0,
     },
     left: {
       flex: 0.5,
