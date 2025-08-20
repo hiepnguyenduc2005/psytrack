@@ -8,9 +8,10 @@ const LandingMiddle: React.FC = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      padding: "3rem 2rem",
+      padding: "0rem 2rem",
       maxWidth: "1200px",
       margin: 0,
+      marginTop: "7rem",
     },
     left: {
       flex: 0.5,
