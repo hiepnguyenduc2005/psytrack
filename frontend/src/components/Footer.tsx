@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 const Footer: React.FC = () => {
   const styles= {
     footer: {
-      width: "100%",
+      width: "100vw",
       backgroundColor: '#6b6b6bff',
       padding: "1.5rem 0rem",
-      position: 'absolute', 
-      bottom: 0,
-      left: 0,
+      position: 'relative' as "relative", 
+      bottom: -8,
+      left: -80,
+      textAlign: "center" as "center",
     },
     container: {
       display: "flex",
