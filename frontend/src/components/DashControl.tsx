@@ -7,12 +7,12 @@ const DashControl: React.FC = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      padding: "3rem 2rem",
+      padding: "0rem 2rem",
+      paddingTop: "5rem",
       maxWidth: "1200px",
     },
     left: {
       padding: "0rem 4rem",
-      //backgroundColor: "#8d6565ff",
       marginRight: 310,
     },
     heading: {
@@ -20,12 +20,12 @@ const DashControl: React.FC = () => {
       fontWeight: 600,
     },
     button: {
-      padding: "0.75rem 1.5rem",
+      padding: "0.65rem 1rem",
       color: "blue",
       backgroundColor: "#ffffffff",
       border: "1.3px solid blue",
       borderRadius: "0.5rem",
-      fontSize: "1rem",
+      fontSize: "0.9rem",
       fontWeight: 500,
     },
     right: {

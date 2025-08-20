@@ -3,6 +3,7 @@ import Navbar from "../components/NavBar";
 import DashControl from "../components/DashControl";
 import Calendar from "../components/DashCalendar";
 import Footer from "../components/Footer";
+import TaskSheet from "../components/TaskSheet";
 
 const Dashboard: React.FC = () => {
   const styles = {
@@ -25,7 +26,7 @@ const Dashboard: React.FC = () => {
     calendarWrapper: {
       flex: '0 0 300px', 
       marginRight: 20,
-      padding: "0rem 3rem",
+      padding: "2rem 3rem",
     },
     graphWrapper: {
       flex: '1 1 auto', 
@@ -40,8 +41,8 @@ const Dashboard: React.FC = () => {
       <div style={styles.container}>
 
         <div style={styles.calendarWrapper}><Calendar /></div>
-        <div style={styles.graphWrapper}>graph goes here</div>
-        
+        <div style={styles.graphWrapper}><TaskSheet /></div>
+                
       </div>
       <Footer/>
     </div>
