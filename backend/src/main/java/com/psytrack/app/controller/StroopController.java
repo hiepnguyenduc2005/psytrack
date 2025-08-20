@@ -1,20 +1,25 @@
 package com.psytrack.app.controller;
 
-import com.psytrack.app.Stroop.StroopResult;
-import com.psytrack.app.Stroop.StroopService;
-import com.psytrack.app.Stroop.StroopSession;
+import com.psytrack.app.Stroop.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/stroop")
 public class StroopController {
 
     private final StroopService service;
+    private final StroopSessionRepository sessionRepository;
+    private final StroopResultRepository resultRepository;
 
-    public StroopController(StroopService service) {
+    public StroopController(StroopService service, StroopSessionRepository sessionRepository, StroopResultRepository resultRepository) {
         this.service = service;
+        this.sessionRepository = sessionRepository;
+        this.resultRepository = resultRepository;
+
     }
 
     @PostMapping("/start")
@@ -34,9 +39,60 @@ public class StroopController {
     }
 
     @PostMapping("/complete")
-    public String completeSession(@RequestParam String sessionId) {
-        service.completeSession(sessionId);
-        return "Session completed";
+    public ResponseEntity<?> completeSession(@RequestParam String sessionId) {
+        Optional<StroopSession> optionalSession = sessionRepository.findById(sessionId);
+        if (optionalSession.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Session not found");
+        }
+
+        StroopSession session = optionalSession.get();
+
+        session.setEndTime(System.currentTimeMillis());
+        session.setStatus("COMPLETED");
+
+        List<StroopResult> results = resultRepository.findBySessionId(sessionId);
+        session.setNumTrialsCompleted(results.size());
+        sessionRepository.save(session);
+
+        if (results.isEmpty()) {
+            return ResponseEntity.ok("No results for this session.");
+        }
+
+        long totalTrials = results.size();
+        long correctTrials = results.stream().filter(StroopResult::isCorrect).count();
+        long missedTrials = results.stream().filter(StroopResult::isMissed).count();
+        double accuracy = (double) correctTrials / (totalTrials - missedTrials);
+
+        List<Long> congruentTimes = new ArrayList<>();
+        List<Long> incongruentTimes = new ArrayList<>();
+
+        for (StroopResult r : results) {
+            if (r.isMissed() || !r.isCorrect()) continue; // only count correct responses
+            boolean congruent = r.getTrial().getWord().equals(r.getTrial().getColor());
+            if (congruent) {
+                congruentTimes.add(r.getReactionTimeMS());
+            } else {
+                incongruentTimes.add(r.getReactionTimeMS());
+            }
+        }
+
+        double avgCongruent = congruentTimes.stream()
+                .mapToLong(Long::longValue).average().orElse(0.0);
+        double avgIncongruent = incongruentTimes.stream()
+                .mapToLong(Long::longValue).average().orElse(0.0);
+
+        // Build response
+        Map<String, Object> response = new HashMap<>();
+        response.put("sessionId", sessionId);
+        response.put("participantId", session.getParticipantId());
+        response.put("numTrials", totalTrials);
+        response.put("missedTrials", missedTrials);
+        response.put("accuracy", accuracy);
+        response.put("avgCongruentRT", avgCongruent);
+        response.put("avgIncongruentRT", avgIncongruent);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/results/{sessionId}")

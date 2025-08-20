@@ -18,9 +18,9 @@ export default function StroopTask() {
     const [currentTrial, setCurrentTrial] = useState<StroopTrial | null>(null);
     const [trialStartTime, setTrialStartTime] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
+    const [sessionSummary, setSessionSummary] = useState<any | null>(null);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Start a new session and then the first trial
     const startSession = async () => {
         setLoading(true);
         try {
@@ -36,28 +36,23 @@ export default function StroopTask() {
             setSession(data);
             setCurrentTrialIndex(0);
             setCurrentTrial(null);
+            setSessionSummary(null);
         } catch (err) {
             alert((err as Error).message);
         }
         setLoading(false);
     };
 
-    // Start next trial whenever session and currentTrialIndex change
     useEffect(() => {
         if (session && currentTrialIndex < session.numTrialsRequested) {
             startNextTrial();
         } else if (session && currentTrialIndex >= session.numTrialsRequested) {
             completeSession();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session, currentTrialIndex]);
 
-    // Start a single trial and set a timer to auto-miss after 2 seconds
     const startNextTrial = () => {
-        // Clear previous timer if any
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-        }
+        if (timerRef.current) clearTimeout(timerRef.current);
         const trial: StroopTrial = {
             word: COLORS[Math.floor(Math.random() * COLORS.length)],
             color: COLORS[Math.floor(Math.random() * COLORS.length)],
@@ -65,17 +60,14 @@ export default function StroopTask() {
         setCurrentTrial(trial);
         setTrialStartTime(Date.now());
 
-        // Auto-submit missed trial after 2 seconds
         timerRef.current = setTimeout(() => {
             sendResult(null);
         }, 2000);
     };
 
-    // Submit user response or missed trial
     const sendResult = async (response: string | null) => {
         if (!session || !currentTrial || trialStartTime === null) return;
 
-        // Clear timer since user responded or missed timed out
         if (timerRef.current) {
             clearTimeout(timerRef.current);
             timerRef.current = null;
@@ -89,13 +81,13 @@ export default function StroopTask() {
             sessionId: session.id,
             trial: currentTrial,
             userResponse: response,
-            reactionTime,
+            reactionTimeMS: reactionTime,
             correct,
             missed,
         };
 
         try {
-            const res = await fetch(
+            await fetch(
                 `http://localhost:8080/stroop/result?sessionId=${session.id}`,
                 {
                     method: "POST",
@@ -103,10 +95,6 @@ export default function StroopTask() {
                     body: JSON.stringify(result),
                 }
             );
-            if (!res.ok) {
-                const text = await res.text();
-                throw new Error(`Failed to send result: ${res.status} ${text}`);
-            }
         } catch (err) {
             alert((err as Error).message);
         }
@@ -116,7 +104,6 @@ export default function StroopTask() {
         setTrialStartTime(null);
     };
 
-    // Complete session
     const completeSession = async () => {
         if (!session) return;
         try {
@@ -128,17 +115,18 @@ export default function StroopTask() {
                 const text = await res.text();
                 throw new Error(`Failed to complete session: ${res.status} ${text}`);
             }
-            alert("Session completed!");
+            const summary = await res.json();
+            setSessionSummary(summary);
         } catch (err) {
             alert((err as Error).message);
         }
+
         setSession(null);
         setCurrentTrialIndex(0);
         setCurrentTrial(null);
         setTrialStartTime(null);
     };
 
-    // Cancel session
     const cancelSession = async () => {
         if (!session) return;
         try {
@@ -164,7 +152,7 @@ export default function StroopTask() {
         <>
             <Navbar />
             <div style={{ padding: "20px", marginTop: "80px" }}>
-                {!session ? (
+                {!session && !sessionSummary ? (
                     <div>
                         <h2>Start Stroop Task</h2>
                         <input
@@ -186,7 +174,7 @@ export default function StroopTask() {
                             Start
                         </button>
                     </div>
-                ) : (
+                ) : session ? (
                     <div>
                         <h2>
                             Trial {currentTrialIndex + 1} / {session.numTrialsRequested}
@@ -224,7 +212,51 @@ export default function StroopTask() {
                             <p>Loading next trial...</p>
                         )}
                     </div>
-                )}
+                ) : sessionSummary ? (
+                    <div
+                        style={{
+                            padding: "20px",
+                            border: "2px solid #ccc",
+                            borderRadius: "12px",
+                            maxWidth: "500px",
+                            margin: "0 auto",
+                            background: "#f9f9f9",
+                            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        <h2>Session Summary</h2>
+                        <p><b>Participant:</b> {sessionSummary.participantId}</p>
+                        <p><b>Total Trials:</b> {sessionSummary.numTrials}</p>
+                        <p><b>Missed Trials:</b> {sessionSummary.missedTrials}</p>
+                        <p>
+                            <b>Accuracy:</b>{" "}
+                            {(sessionSummary.accuracy * 100).toFixed(1)}%
+                        </p>
+                        <p>
+                            <b>Avg Congruent RT:</b>{" "}
+                            {sessionSummary.avgCongruentRT.toFixed(1)} ms
+                        </p>
+                        <p>
+                            <b>Avg Incongruent RT:</b>{" "}
+                            {sessionSummary.avgIncongruentRT.toFixed(1)} ms
+                        </p>
+
+                        <button
+                            style={{
+                                marginTop: "20px",
+                                padding: "10px 20px",
+                                borderRadius: "8px",
+                                backgroundColor: "#4CAF50",
+                                color: "white",
+                                border: "none",
+                                cursor: "pointer",
+                            }}
+                            onClick={() => setSessionSummary(null)}
+                        >
+                            Done
+                        </button>
+                    </div>
+                ) : null}
             </div>
         </>
     );
