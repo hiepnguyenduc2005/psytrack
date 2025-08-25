@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '1rem 2rem',
+      padding: '0.9rem 2rem',
       position: 'fixed',
       top: 0,
       left: 0,
@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
     links: {
       listStyle: 'none',
       display: 'flex',
-      gap: '2rem',
+      gap: '2.5rem',
       padding: 0,
       margin: 0,
     },
@@ -35,13 +35,17 @@ const Navbar: React.FC = () => {
 
   return (
     <nav style={styles.navbar}>
-      <Link to="/" style={{ ...styles.logo, ...styles.link }}>PsyTrack</Link>
+      <Link to="/" style={{ ...styles.logo}}>
+        <span style={{ color: "#000000ff" }}>Psy</span>
+        <span style={{ color: "#218677ff" }}>Track</span>
+      </Link>
+
       <ul style={styles.links}>
         <li>
           <Link 
-            to="/resources" 
+            to="/Resources" 
             style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Resources
@@ -52,7 +56,7 @@ const Navbar: React.FC = () => {
           <Link 
             to="/stroopTask" 
             style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Stroop Task
@@ -63,7 +67,7 @@ const Navbar: React.FC = () => {
           <Link 
             to="/Dashboard" 
             style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Dashboard
@@ -73,8 +77,8 @@ const Navbar: React.FC = () => {
         <li>
           <Link 
             to="/logIn" 
-            style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+            style={{ color: "#218677ff" }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Log In

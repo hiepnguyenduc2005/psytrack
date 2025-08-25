@@ -9,7 +9,6 @@ const Dashboard: React.FC = () => {
   const styles = {
     dashboard: {
       width: "100%",
-
     },
     header: {
       fontSize: '3rem',
