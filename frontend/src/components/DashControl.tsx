@@ -21,9 +21,9 @@ const DashControl: React.FC = () => {
     },
     button: {
       padding: "0.65rem 1rem",
-      color: "blue",
+      color: "#218677ff",
       backgroundColor: "#ffffffff",
-      border: "1.3px solid blue",
+      border: "1.3px solid #218677ff",
       borderRadius: "0.5rem",
       fontSize: "0.9rem",
       fontWeight: 500,

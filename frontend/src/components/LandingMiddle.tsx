@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import stroopImage from "../assets/stroopImage.png";
+import stroopLandingImage from "../assets/stroopLandingImage.png";
 
 const LandingMiddle: React.FC = () => {
   const styles = {
@@ -57,7 +57,7 @@ const LandingMiddle: React.FC = () => {
 
         {/* image */}
         <img
-            src={stroopImage}
+            src={stroopLandingImage}
             alt="Stroop Task"
             style={styles.image}
         />

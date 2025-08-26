@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
-import stroopTitle from "../assets/stroopTitle.jpg";
+import stroopImage from "../assets/stroopImage.jpg";
+import nbackImage from "../assets/nbackImage.png";
+import dotprobeImage from "../assets/dotprobeImage.png";
+import lexicaldecisionImage from "../assets/lexicaldecisionImage.png";
+import stopsignalImage from "../assets/stopsignalImage.png";
 
 
 const Resources: React.FC = () => {
@@ -56,13 +60,13 @@ const Resources: React.FC = () => {
 
       <div style={styles.cardContainer}>
         <Link
-          to="/stroopTask"
+          to="/strooptaskInfo"
           style={styles.cards}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
           <img
-            src={stroopTitle}
+            src={stroopImage}
             alt="Stroop Task"
             style={styles.cardImage}
           />
@@ -74,14 +78,14 @@ const Resources: React.FC = () => {
         </Link>
 
         <Link
-          to="/stroopTask"
+          to="/"
           style={styles.cards}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
           <img
-            src={stroopTitle}
-            alt="Stroop Task"
+            src={nbackImage}
+            alt="N Back"
             style={styles.cardImage}
           />
           <h3 style={styles.cardHeader}>N-Back Task</h3>
@@ -92,14 +96,14 @@ const Resources: React.FC = () => {
         </Link>
 
         <Link
-          to="/stroopTask"
+          to="/"
           style={styles.cards}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
           <img
-            src={stroopTitle}
-            alt="Stroop Task"
+            src={dotprobeImage}
+            alt="Dot Probe"
             style={styles.cardImage}
           />
           <h3 style={styles.cardHeader}>Dot-Probe Task</h3>
@@ -109,14 +113,14 @@ const Resources: React.FC = () => {
         </Link>
 
         <Link
-          to="/stroopTask"
+          to="/"
           style={styles.cards}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
           <img
-            src={stroopTitle}
-            alt="Stroop Task"
+            src={lexicaldecisionImage}
+            alt="Lexical Decision"
             style={styles.cardImage}
           />
           <h3 style={styles.cardHeader}>Lexical Decision Task</h3>
@@ -127,14 +131,14 @@ const Resources: React.FC = () => {
         </Link>
 
         <Link
-          to="/stroopTask"
+          to="/"
           style={styles.cards}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
           <img
-            src={stroopTitle}
-            alt="Stroop Task"
+            src={stopsignalImage}
+            alt="Stop Signal"
             style={styles.cardImage}
           />
           <h3 style={styles.cardHeader}>Stop Signal Task</h3>
@@ -145,8 +149,6 @@ const Resources: React.FC = () => {
         </Link>
 
         
-
-
       </div>
 
     </div>
