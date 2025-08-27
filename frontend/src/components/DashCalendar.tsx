@@ -82,7 +82,7 @@ function Calendar() {
                 lineHeight: '30px',
                 textAlign: 'center',
                 borderRadius: 4,
-                backgroundColor: isCompleted ? "#4faf4cc6" : day ? "#f0f0f0" : "transparent",
+                backgroundColor: isCompleted ? "#218677ff" : day ? "#ffffffff" : "transparent",
                 color: day ? (isCompleted ? "#fff" : "#000") : "transparent",
                 fontWeight: isCompleted ? "bold" : "normal",
                 cursor: day ? "pointer" : "default",

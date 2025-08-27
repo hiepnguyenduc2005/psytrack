@@ -7,6 +7,7 @@ import Resources from "./pages/Resources";
 import StroopTask from "./pages/StroopTask";
 import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage";
+import StroopInfo from './pages/strooptaskInfo.tsx';
 
 import "./App.css";
 
@@ -41,6 +42,14 @@ function App() {
           element={
             <SignedIn>
               <Resources />
+            </SignedIn>
+          }
+        />
+
+        <Route path="/strooptaskInfo" 
+          element={
+            <SignedIn>
+              <StroopInfo />
             </SignedIn>
           }
         />
