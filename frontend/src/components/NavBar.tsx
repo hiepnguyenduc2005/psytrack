@@ -33,55 +33,27 @@ const Navbar: React.FC = () => {
       color: "black",
       textDecoration: "none",
     },
+    authLink: {
+      color: "#218677ff",
+      textDecoration: "none",
+    },
   } as const;
 
   return (
     <nav style={styles.navbar}>
-      {/* Logo */}
+      {/* Logo always visible */}
       <Link to="/" style={{ ...styles.logo }}>
         <span style={{ color: "#000000ff" }}>Psy</span>
         <span style={{ color: "#218677ff" }}>Track</span>
       </Link>
 
-      {/* Navigation links */}
       <ul style={styles.links}>
-        <li>
-          <Link
-            to="/Resources"
-            style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Resources
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/stroopTask"
-            style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Stroop Task
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/Dashboard"
-            style={styles.link}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Dashboard
-          </Link>
-        </li>
-
-        {/* Show when signed OUT */}
+        {/* Show when NOT signed in */}
         <SignedOut>
           <li>
             <Link
               to="/sign-in"
-              style={{ color: "#218677ff" }}
+              style={styles.authLink}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
@@ -91,7 +63,7 @@ const Navbar: React.FC = () => {
           <li>
             <Link
               to="/sign-up"
-              style={{ color: "#218677ff" }}
+              style={styles.authLink}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
@@ -100,10 +72,40 @@ const Navbar: React.FC = () => {
           </li>
         </SignedOut>
 
-        {/* Show when signed IN */}
+        {/* Show when signed in */}
         <SignedIn>
           <li>
-            {/* Clerk’s built-in user menu (profile + sign out) */}
+            <Link
+              to="/Resources"
+              style={styles.link}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Resources
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/stroopTask"
+              style={styles.link}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Stroop Task
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/Dashboard"
+              style={styles.link}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            {/* Clerk’s built-in profile + sign out button */}
             <UserButton afterSignOutUrl="/" />
           </li>
         </SignedIn>
