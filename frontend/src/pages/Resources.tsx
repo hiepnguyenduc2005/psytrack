@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react"
 import Navbar from "../components/NavBar";
 import stroopImage from "../assets/stroopImage.jpg";
 import nbackImage from "../assets/nbackImage.png";
@@ -56,99 +57,149 @@ const Resources: React.FC = () => {
     <div>
       <Navbar/>
 
+      
+
       <h2 style={styles.header}> What would you like to explore today?</h2>
 
       <div style={styles.cardContainer}>
-        <Link
-          to="/strooptaskInfo"
+        <motion.div
           style={styles.cards}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          <img
-            src={stroopImage}
-            alt="Stroop Task"
-            style={styles.cardImage}
-          />
-          <h3 style={styles.cardHeader}>Stroop Task</h3>
-          <p style={styles.cardDesc}>
-            The Stroop phenomenon demonstrates that it is difficult to name the ink color of a color word if 
-            there is a mismatch between ink color and word. 
-          </p>
-        </Link>
 
-        <Link
-          to="/"
+          whileHover="hover"
+            transition={{
+              duration: 0.4,
+              ease: "backInOut",
+            }}
+            variants={{
+              hover: {
+                scale: 1.05,
+              },
+            }}
+        >
+          <Link to="/strooptaskInfo">
+            <img
+              src={stroopImage}
+              alt="Stroop Task"
+              style={styles.cardImage}
+            />
+            <h3 style={styles.cardHeader}>Stroop Task</h3>
+            <p style={styles.cardDesc}>
+              The Stroop phenomenon demonstrates that it is difficult to name the ink color of a color word if 
+              there is a mismatch between ink color and word. 
+            </p>
+          </Link>
+        </motion.div>
+
+        <motion.div
           style={styles.cards}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          <img
-            src={nbackImage}
-            alt="N Back"
-            style={styles.cardImage}
-          />
-          <h3 style={styles.cardHeader}>N-Back Task</h3>
-          <p style={styles.cardDesc}>
-            In the N-Back task, participants are presented a sequence of stimuli one-by-one. For each stimulus, 
-            they need to decide if the current stimulus is the same as the one presented N trials ago.
-          </p>
-        </Link>
 
-        <Link
-          to="/"
+          whileHover="hover"
+            transition={{
+              duration: 0.4,
+              ease: "backInOut",
+            }}
+            variants={{
+              hover: {
+                scale: 1.05,
+              },
+            }}
+        >
+          <Link to="/">
+            <img
+              src={nbackImage}
+              alt="N Back"
+              style={styles.cardImage}
+            />
+            <h3 style={styles.cardHeader}>N-Back Task</h3>
+            <p style={styles.cardDesc}>
+              In the N-Back task, participants are presented a sequence of stimuli one-by-one. For each stimulus, 
+              they need to decide if the current stimulus is the same as the one presented N trials ago.
+            </p>
+          </Link>
+        </motion.div>
+
+        <motion.div
           style={styles.cards}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          <img
-            src={dotprobeImage}
-            alt="Dot Probe"
-            style={styles.cardImage}
-          />
-          <h3 style={styles.cardHeader}>Dot-Probe Task</h3>
-          <p style={styles.cardDesc}>
-            The Dot-Probe Task measures how much faster people respond to threatening stimuli compared to neutral stimuli.
-          </p>
-        </Link>
 
-        <Link
-          to="/"
+          whileHover="hover"
+            transition={{
+              duration: 0.4,
+              ease: "backInOut",
+            }}
+            variants={{
+              hover: {
+                scale: 1.05,
+              },
+            }}
+        >
+          <Link to="/">
+            <img
+              src={dotprobeImage}
+              alt="Dot Probe"
+              style={styles.cardImage}
+            />
+            <h3 style={styles.cardHeader}>Dot-Probe Task</h3>
+            <p style={styles.cardDesc}>
+              The Dot-Probe Task measures how much faster people respond to threatening stimuli compared to neutral stimuli.
+            </p>
+          </Link>
+        </motion.div>
+
+        <motion.div
           style={styles.cards}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          <img
-            src={lexicaldecisionImage}
-            alt="Lexical Decision"
-            style={styles.cardImage}
-          />
-          <h3 style={styles.cardHeader}>Lexical Decision Task</h3>
-          <p style={styles.cardDesc}>
-            In a Lexical Decision Task (LDT), a participant needs to make a decision about whether combinations of letters 
-            are words or not. For example, when you see the letters "XLFFE" you respond "No, this is not a real English word".
-          </p>
-        </Link>
 
-        <Link
-          to="/"
+          whileHover="hover"
+            transition={{
+              duration: 0.4,
+              ease: "backInOut",
+            }}
+            variants={{
+              hover: {
+                scale: 1.05,
+              },
+            }}
+        >
+          <Link to="/">
+            <img
+              src={lexicaldecisionImage}
+              alt="Lexical Decision"
+              style={styles.cardImage}
+            />
+            <h3 style={styles.cardHeader}>Lexical Decision Task</h3>
+            <p style={styles.cardDesc}>
+              In a Lexical Decision Task (LDT), a participant needs to make a decision about whether combinations of letters 
+              are words or not. For example, when you see the letters "XLFFE" you respond "No, this is not a real English word".
+            </p>
+          </Link>
+        </motion.div>
+
+        <motion.div
           style={styles.cards}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          <img
-            src={stopsignalImage}
-            alt="Stop Signal"
-            style={styles.cardImage}
-          />
-          <h3 style={styles.cardHeader}>Stop Signal Task</h3>
-          <p style={styles.cardDesc}>
-            In a Stop Signal Task, you are asked to respond quickly, except when a stop signal arrives.
-            Once you have initiated a movement, even when just "in the brain" as a plan, it is hard to stop.
-          </p>
-        </Link>
 
-        
+          whileHover="hover"
+            transition={{
+              duration: 0.4,
+              ease: "backInOut",
+            }}
+            variants={{
+              hover: {
+                scale: 1.05,
+              },
+            }}
+        >
+          <Link to="/">
+            <img
+              src={stopsignalImage}
+              alt="Stop Signal"
+              style={styles.cardImage}
+            />
+            <h3 style={styles.cardHeader}>Stop Signal Task</h3>
+            <p style={styles.cardDesc}>
+              In a Stop Signal Task, you are asked to respond quickly, except when a stop signal arrives.
+              Once you have initiated a movement, even when just "in the brain" as a plan, it is hard to stop.
+            </p>
+          </Link>
+        </motion.div>
       </div>
 
     </div>
