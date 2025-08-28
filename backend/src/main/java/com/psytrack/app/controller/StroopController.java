@@ -88,6 +88,7 @@ public class StroopController {
         response.put("participantId", session.getParticipantId());
         response.put("numTrials", totalTrials);
         response.put("missedTrials", missedTrials);
+        response.put("correctTrials", correctTrials);
         response.put("accuracy", accuracy);
         response.put("avgCongruentRT", avgCongruent);
         response.put("avgIncongruentRT", avgIncongruent);
@@ -98,5 +99,10 @@ public class StroopController {
     @GetMapping("/results/{sessionId}")
     public List<StroopResult> getResults(@PathVariable String sessionId) {
         return service.getResultsForSession(sessionId);
+    }
+
+    @GetMapping("/results_users/{participantId}")
+    public List<StroopSession> getResultsByUser(@PathVariable String participantId) {
+        return service.getResultsForParticipant(participantId);
     }
 }

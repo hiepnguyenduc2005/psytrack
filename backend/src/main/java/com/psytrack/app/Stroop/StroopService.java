@@ -14,6 +14,10 @@ public class StroopService {
         this.sessionRepo = sessionRepo;
     }
 
+    public List<StroopSession> getAllSessions() {
+        return sessionRepo.findAll();
+    }
+
     public StroopSession startSession(String participantId, int numTrials) {
         StroopSession session = new StroopSession();
         String sessionId = UUID.randomUUID().toString(); // unique session ID
@@ -23,6 +27,7 @@ public class StroopService {
         session.setStartTime(System.currentTimeMillis());
         session.setNumTrialsRequested(numTrials);
         session.setNumTrialsCompleted(0);
+        session.setNumTrialsCorrect(0);
         session.setStatus("IN_PROGRESS");
 
         sessionRepo.save(session);
@@ -35,6 +40,11 @@ public class StroopService {
 
         StroopSession session = sessionRepo.findById(sessionId).orElseThrow();
         session.setNumTrialsCompleted(session.getNumTrialsCompleted() + 1);
+
+        if (result.isCorrect()) {
+            session.setNumTrialsCorrect(session.getNumTrialsCorrect() + 1);
+        }
+
         sessionRepo.save(session);
 
         return saved;
@@ -56,5 +66,9 @@ public class StroopService {
 
     public List<StroopResult> getResultsForSession(String sessionId) {
         return resultRepo.findBySessionId(sessionId);
+    }
+
+    public List<StroopSession> getResultsForParticipant(String participantId) {
+        return sessionRepo.findByParticipantId(participantId);
     }
 }

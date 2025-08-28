@@ -1,6 +1,7 @@
 import Navbar from "../components/NavBar";
 import { useState, useEffect, useRef } from "react";
 import type { StroopSession, StroopTrial, StroopResult } from "./types";
+import { useUser } from "@clerk/clerk-react";
 
 const COLORS = ["RED", "GREEN", "BLUE", "YELLOW"];
 const COLOR_VALUES: Record<string, string> = {
@@ -11,7 +12,9 @@ const COLOR_VALUES: Record<string, string> = {
 };
 
 export default function StroopTask() {
-    const [participantId, setParticipantId] = useState("");
+    const { user } = useUser();
+    const participantId = user?.id || "default";
+
     const [numTrials, setNumTrials] = useState(5);
     const [session, setSession] = useState<StroopSession | null>(null);
     const [currentTrialIndex, setCurrentTrialIndex] = useState(0);
@@ -156,11 +159,6 @@ export default function StroopTask() {
                     <div>
                         <h2>Start Stroop Task</h2>
                         <input
-                            placeholder="Participant ID"
-                            value={participantId}
-                            onChange={(e) => setParticipantId(e.target.value)}
-                        />
-                        <input
                             type="number"
                             min={1}
                             max={100}
@@ -222,12 +220,13 @@ export default function StroopTask() {
                             margin: "0 auto",
                             background: "#f9f9f9",
                             boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                            color: "#000",
                         }}
                     >
                         <h2>Session Summary</h2>
-                        <p><b>Participant:</b> {sessionSummary.participantId}</p>
                         <p><b>Total Trials:</b> {sessionSummary.numTrials}</p>
-                        <p><b>Missed Trials:</b> {sessionSummary.missedTrials}</p>
+                        <p><b>Skipped Trials:</b> {sessionSummary.missedTrials}</p>
+                        <p><b>Correct Trials:</b> {sessionSummary.correctTrials}</p>
                         <p>
                             <b>Accuracy:</b>{" "}
                             {(sessionSummary.accuracy * 100).toFixed(1)}%

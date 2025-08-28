@@ -1,6 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
-function Calendar() {
+interface StroopSession {
+  startTime: number; // assuming timestamp in ms
+  endTime: number | null;
+  status: string; // e.g., "COMPLETED"
+}
+
+interface CalendarProps {
+  stroopSessions: StroopSession[];
+}
+
+const Calendar: React.FC<CalendarProps> = ({ stroopSessions }) => {
   const [date, setDate] = useState(new Date());
 
   const month = date.getMonth();
@@ -35,14 +45,16 @@ function Calendar() {
 
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  const completedDates = [
-    "2025-08-02",
-    "2025-08-08",
-    "2025-08-11",
-    "2025-08-23",
-    "2025-08-27",
-    "2025-08-31",
-  ];
+ const completedDates = useMemo(() => {
+    return new Set(
+      stroopSessions
+        .filter(s => s.status === "COMPLETED" && s.endTime)
+        .map(s => {
+          const d = new Date(s.endTime!);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        })
+    );
+  }, [stroopSessions]);
 
   const formatDate = (y: number, m: number, d: number) =>
     `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
@@ -70,10 +82,8 @@ function Calendar() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4 }}>
         {calendarDays.map((day, idx) => {
-          const isCompleted =
-            day &&
-            completedDates.includes(formatDate(year, month, day));
-
+          const isCompleted = day && completedDates.has(formatDate(year, month, day));
+          
           return (
             <div
               key={idx}
